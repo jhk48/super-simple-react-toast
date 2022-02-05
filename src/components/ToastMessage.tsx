@@ -7,6 +7,7 @@ interface Message {
   message: string;
   type: MessageType;
   theme: Theme;
+  duration: number;
 }
 
 interface Props {
@@ -24,14 +25,14 @@ export default function ToastMessage({ messages, closeMessage }: Props) {
 
   return (
     <>
-      {messages.map(({ id, message, theme, type }) => (
+      {messages.map(({ id, message, theme, type, duration }) => (
         <Style.Container currentTheme={theme} messageType={type} key={id}>
           {getIcon(type)}
           <Style.Message currentTheme={theme} messageType={type}>{message}</Style.Message>
           <Style.CloseButton type="button" currentTheme={theme} messageType={type} onClick={() => closeMessage(id)}>
             <Icon.Close />
           </Style.CloseButton>
-          <Style.ProgressBar currentTheme={theme} messageType={type} duration="3s" />
+          <Style.ProgressBar currentTheme={theme} messageType={type} duration={`${duration}ms`} />
         </Style.Container>
       ))}
     </>

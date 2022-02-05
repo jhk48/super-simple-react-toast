@@ -8,6 +8,7 @@ interface Message {
   message: string;
   type: MessageType;
   theme: Theme;
+  duration: number;
 }
 
 class Toast {
@@ -38,7 +39,8 @@ class Toast {
       id,
       message,
       theme,
-      type: 'success'
+      type: 'success',
+      duration
     });
 
     render(<ToastMessage messages={this.#messages} closeMessage={this.#closeMessage.bind(this)} />, this.#rootElem);
@@ -51,7 +53,8 @@ class Toast {
       id,
       message,
       theme,
-      type: 'warning'
+      type: 'warning',
+      duration
     });
 
     render(<ToastMessage messages={this.#messages} closeMessage={this.#closeMessage.bind(this)} />, this.#rootElem);
@@ -64,7 +67,8 @@ class Toast {
       id,
       message,
       theme,
-      type: 'error'
+      type: 'error',
+      duration
     });
 
     render(<ToastMessage messages={this.#messages} closeMessage={this.#closeMessage.bind(this)} />, this.#rootElem);
@@ -77,7 +81,8 @@ class Toast {
       id,
       message,
       theme,
-      type: 'info'
+      type: 'info',
+      duration
     });
 
     render(<ToastMessage messages={this.#messages} closeMessage={this.#closeMessage.bind(this)} />, this.#rootElem);
