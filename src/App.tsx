@@ -1,25 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { SyntheticEvent, useState } from 'react';
+import { ThemeProvider, DefaultTheme } from 'styled-components';
+import GlobalStyle from './GlobalStyle';
+
+const lightTheme: DefaultTheme= {
+  bgColor: '#F8F9FA'
+}
+
+const darkTheme: DefaultTheme = {
+  bgColor: '#1A1C34'
+}
 
 function App() {
+  const [messageText, setMessageText] = useState('');
+  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('light');
+  
+  function handleChange(e: SyntheticEvent) {
+    const target = e.target as HTMLInputElement;
+    setMessageText(target.value);
+  }
+
+  function toggleTheme() {
+    setCurrentTheme(prev => prev === 'light' ? 'dark' : 'light');
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={currentTheme === 'light' ? lightTheme : darkTheme}>
+      <GlobalStyle />
+      <button type="button">success message</button>
+      <button type="button">warning message</button>
+      <button type="button">info message</button>
+      <button type="button">error message</button>
+      <br />
+      <br />
+      <input type="text" value={messageText} onChange={handleChange} placeholder="메시지 내용" />
+      <br />
+      <br />
+      <button type="button" onClick={toggleTheme}>toggle theme</button>
+    </ThemeProvider>
   );
 }
 
