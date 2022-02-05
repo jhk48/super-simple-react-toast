@@ -1,13 +1,16 @@
 import { SyntheticEvent, useState } from 'react';
 import { ThemeProvider, DefaultTheme } from 'styled-components';
 import GlobalStyle from './GlobalStyle';
+import toast from './Toast';
 
 const lightTheme: DefaultTheme= {
-  bgColor: '#F8F9FA'
+  bgColor: '#F8F9FA',
+  currentTheme: 'light'
 }
 
 const darkTheme: DefaultTheme = {
-  bgColor: '#1A1C34'
+  bgColor: '#1A1C34',
+  currentTheme: 'dark'
 }
 
 function App() {
@@ -26,10 +29,10 @@ function App() {
   return (
     <ThemeProvider theme={currentTheme === 'light' ? lightTheme : darkTheme}>
       <GlobalStyle />
-      <button type="button">success message</button>
-      <button type="button">warning message</button>
-      <button type="button">info message</button>
-      <button type="button">error message</button>
+      <button type="button" onClick={() => toast.success(messageText, currentTheme)}>success message</button>
+      <button type="button" onClick={() => toast.warning(messageText, currentTheme)}>warning message</button>
+      <button type="button" onClick={() => toast.info(messageText, currentTheme)}>info message</button>
+      <button type="button" onClick={() => toast.error(messageText, currentTheme)}>error message</button>
       <br />
       <br />
       <input type="text" value={messageText} onChange={handleChange} placeholder="메시지 내용" />
