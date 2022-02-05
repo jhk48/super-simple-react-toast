@@ -6,6 +6,10 @@ interface Type {
   messageType: MessageType;
 }
 
+interface ProgressBarProps extends Type {
+  duration: string;
+}
+
 const ToastTheme: ToastStyles = {
   light: {
     success: {
@@ -54,6 +58,7 @@ const ToastTheme: ToastStyles = {
 };
 
 export const Container = styled.div<Type>`
+  position: relative;
   display: flex;
   align-items: center;
   width: fit-content;
@@ -85,5 +90,23 @@ export const CloseButton = styled.button<Type>`
   cursor: pointer;
   & > svg {
     fill: ${({ currentTheme, messageType }) => ToastTheme[currentTheme][messageType].color};
+  }
+`;
+
+export const ProgressBar = styled.div<ProgressBarProps>`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 5px;
+  background-color: ${({ currentTheme, messageType }) => ToastTheme[currentTheme][messageType].progressBarColor};
+  animation: progressBar ${({ duration }) => duration} linear;
+
+  @keyframes progressBar {
+    0% {
+      width: 100%;
+    }
+    100% {
+      width: 0%;
+    }
   }
 `;

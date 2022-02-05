@@ -3,7 +3,7 @@ import * as Icon from '../icons';
 import { MessageType, Theme } from '../types';
 
 interface Message {
-  id: number;
+  id: string;
   message: string;
   type: MessageType;
   theme: Theme;
@@ -11,7 +11,7 @@ interface Message {
 
 interface Props {
   messages: Message[];
-  closeMessage: (id: number) => void
+  closeMessage: (id: string) => void
 }
 
 export default function ToastMessage({ messages, closeMessage }: Props) {
@@ -31,8 +31,10 @@ export default function ToastMessage({ messages, closeMessage }: Props) {
           <Style.CloseButton type="button" currentTheme={theme} messageType={type} onClick={() => closeMessage(id)}>
             <Icon.Close />
           </Style.CloseButton>
+          <Style.ProgressBar currentTheme={theme} messageType={type} duration="3s" />
         </Style.Container>
       ))}
     </>
   );
 }
+
