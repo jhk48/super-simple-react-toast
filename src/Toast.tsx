@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { render } from 'react-dom';
 import ToastMessage from './components/ToastMessage';
-import { Theme,  Message } from './types';
+import { Theme,  Message, ToastPosition } from './types';
 
 class Toast {
   #rootElem: HTMLElement;
@@ -25,56 +25,60 @@ class Toast {
     }, duration, this);
   }
 
-  success(message: string, theme: Theme = 'light', duration = this.#defaultDuration) {
+  success(message: string, theme: Theme = 'light', position: ToastPosition = "topLeft", duration = this.#defaultDuration) {
     const id = uuid();
     this.#messages.push({
       id,
       message,
       theme,
       type: 'success',
-      duration
+      duration,
+      position
     });
 
     render(<ToastMessage messages={this.#messages} closeMessage={this.#closeMessage.bind(this)} />, this.#rootElem);
     this.#autoCloseMessage(duration, id);
   }
 
-  warning(message: string, theme: Theme = 'light', duration = this.#defaultDuration) {
+  warning(message: string, theme: Theme = 'light', position: ToastPosition = "topLeft", duration = this.#defaultDuration) {
     const id = uuid();
     this.#messages.push({
       id,
       message,
       theme,
       type: 'warning',
-      duration
+      duration,
+      position
     });
 
     render(<ToastMessage messages={this.#messages} closeMessage={this.#closeMessage.bind(this)} />, this.#rootElem);
     this.#autoCloseMessage(duration, id);
   }
 
-  error(message: string, theme: Theme = 'light', duration = this.#defaultDuration) {
+  error(message: string, theme: Theme = 'light', position: ToastPosition = "topLeft", duration = this.#defaultDuration) {
     const id = uuid();
     this.#messages.push({
       id,
       message,
       theme,
       type: 'error',
-      duration
+      duration,
+      position
     });
 
     render(<ToastMessage messages={this.#messages} closeMessage={this.#closeMessage.bind(this)} />, this.#rootElem);
     this.#autoCloseMessage(duration, id);
   }
   
-  info(message: string, theme: Theme = 'light', duration = this.#defaultDuration) {
+  info(message: string, theme: Theme = 'light', position: ToastPosition = "topLeft", duration = this.#defaultDuration) {
     const id = uuid();
     this.#messages.push({
       id,
       message,
       theme,
       type: 'info',
-      duration
+      duration,
+      position
     });
 
     render(<ToastMessage messages={this.#messages} closeMessage={this.#closeMessage.bind(this)} />, this.#rootElem);

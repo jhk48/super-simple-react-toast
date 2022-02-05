@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MessageType, Theme, ToastStyles } from '../types';
+import { MessageType, Theme, ToastStyles, ToastPosition, ToastPositions } from '../types';
 
 interface MessageProps {
   currentTheme: Theme;
@@ -8,6 +8,11 @@ interface MessageProps {
 
 interface ProgressBarProps extends MessageProps {
   duration: string;
+}
+
+
+interface ToastContainerProps extends MessageProps {
+  position: ToastPosition;
 }
 
 const ToastTheme: ToastStyles = {
@@ -57,8 +62,32 @@ const ToastTheme: ToastStyles = {
   }
 };
 
-export const Container = styled.div<MessageProps>`
-  position: relative;
+const positions: ToastPositions = {
+  topLeft: {
+    top: '12px',
+    left: '12px',
+  },
+  topRight: {
+    top: '12px',
+    right: '12px'  
+  },
+  bottomLeft: {
+    bottom: '12px',
+    left: '12px',
+  },
+  bottomRight: {
+    bottom: '12px',
+    right: '12px'  
+  },
+};
+
+export const Container = styled.div<ToastContainerProps>`
+  position: absolute;
+  z-index: 999;
+  top: ${({ position }) => positions[position].top};
+  bottom: ${({ position }) => positions[position].bottom};
+  left: ${({ position }) => positions[position].left};
+  right: ${({ position }) => positions[position].right};
   display: flex;
   align-items: center;
   width: fit-content;

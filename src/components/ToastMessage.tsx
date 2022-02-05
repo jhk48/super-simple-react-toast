@@ -17,8 +17,8 @@ export default function ToastMessage({ messages, closeMessage }: Props) {
 
   return (
     <>
-      {messages.map(({ id, message, theme, type, duration }) => (
-        <Style.Container currentTheme={theme} messageType={type} key={id}>
+      {messages.map(({ id, message, theme, type, duration, position }) => (
+        <Style.Container currentTheme={theme} messageType={type} key={id} position={position}>
           {getIcon(type)}
           <Style.Message currentTheme={theme} messageType={type}>{message}</Style.Message>
           <Style.CloseButton type="button" currentTheme={theme} messageType={type} onClick={() => closeMessage(id)}>
