@@ -1,15 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { render } from 'react-dom';
 import ToastMessage from './components/ToastMessage';
-import { Theme, MessageType } from './types';
-
-interface Message {
-  id: string;
-  message: string;
-  type: MessageType;
-  theme: Theme;
-  duration: number;
-}
+import { Theme,  Message } from './types';
 
 class Toast {
   #rootElem: HTMLElement;

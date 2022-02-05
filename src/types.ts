@@ -18,3 +18,11 @@ export interface ToastStyles {
   light: ToastStyle,
   dark: ToastStyle
 }
+
+export interface Message {
+  id: string;
+  message: string;
+  type: MessageType;
+  theme: Theme;
+  duration: number;
+}

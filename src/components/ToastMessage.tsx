@@ -1,14 +1,6 @@
 import * as Style from './styles';
 import * as Icon from '../icons';
-import { MessageType, Theme } from '../types';
-
-interface Message {
-  id: string;
-  message: string;
-  type: MessageType;
-  theme: Theme;
-  duration: number;
-}
+import { MessageType, Message } from '../types';
 
 interface Props {
   messages: Message[];

@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { MessageType, Theme, ToastStyles } from '../types';
 
-interface Type {
+interface MessageProps {
   currentTheme: Theme;
   messageType: MessageType;
 }
 
-interface ProgressBarProps extends Type {
+interface ProgressBarProps extends MessageProps {
   duration: string;
 }
 
@@ -57,7 +57,7 @@ const ToastTheme: ToastStyles = {
   }
 };
 
-export const Container = styled.div<Type>`
+export const Container = styled.div<MessageProps>`
   position: relative;
   display: flex;
   align-items: center;
@@ -73,7 +73,7 @@ export const Container = styled.div<Type>`
   }
 `;
 
-export const Message = styled.p<Type>`
+export const Message = styled.p<MessageProps>`
   width: 300px;
   max-height: 60px;
   margin: 0;
@@ -82,7 +82,7 @@ export const Message = styled.p<Type>`
   overflow: hidden;
 `;
 
-export const CloseButton = styled.button<Type>`
+export const CloseButton = styled.button<MessageProps>`
   display: flex;
   align-items: center;
   background: none;
