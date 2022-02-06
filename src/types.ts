@@ -26,7 +26,6 @@ export interface Message {
   type: MessageType;
   theme: Theme;
   duration: number;
-  position: ToastPosition;
 }
 
 interface ToastPositionValues {
@@ -39,4 +38,3 @@ interface ToastPositionValues {
 export type ToastPositions = {
   [key in ToastPosition]: ToastPositionValues;
 }
-

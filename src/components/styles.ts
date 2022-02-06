@@ -11,7 +11,7 @@ interface ProgressBarProps extends MessageProps {
 }
 
 
-interface ToastContainerProps extends MessageProps {
+interface ToastContainerProps {
   position: ToastPosition;
 }
 
@@ -81,18 +81,23 @@ const positions: ToastPositions = {
   },
 };
 
-export const Container = styled.div<ToastContainerProps>`
+export const ToastContainer = styled.div<ToastContainerProps>`
   position: absolute;
   z-index: 999;
   top: ${({ position }) => positions[position].top};
   bottom: ${({ position }) => positions[position].bottom};
   left: ${({ position }) => positions[position].left};
   right: ${({ position }) => positions[position].right};
+`;
+
+export const Toast = styled.div<MessageProps>`
+  position: relative;
   display: flex;
   align-items: center;
   width: fit-content;
   min-height: 30px;
   border-radius: 5px 5px 0px 0px;
+  margin-bottom: 1em;
   padding: 0.7em;
   background-color: ${({ currentTheme, messageType }) => ToastTheme[currentTheme][messageType].backgroundColor};
 

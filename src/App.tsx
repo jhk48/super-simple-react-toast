@@ -29,10 +29,10 @@ function App() {
   return (
     <ThemeProvider theme={currentTheme === 'light' ? lightTheme : darkTheme}>
       <GlobalStyle />
-      <button type="button" onClick={() => toast.success(messageText, currentTheme, "topLeft")}>success message</button>
-      <button type="button" onClick={() => toast.warning(messageText, currentTheme, "topRight")}>warning message</button>
-      <button type="button" onClick={() => toast.info(messageText, currentTheme, "bottomLeft")}>info message</button>
-      <button type="button" onClick={() => toast.error(messageText, currentTheme, "bottomRight")}>error message</button>
+      <button type="button" onClick={() => toast.success(messageText, currentTheme)}>success message</button>
+      <button type="button" onClick={() => toast.warning(messageText, currentTheme)}>warning message</button>
+      <button type="button" onClick={() => toast.info(messageText, currentTheme)}>info message</button>
+      <button type="button" onClick={() => toast.error(messageText, currentTheme)}>error message</button>
       <br />
       <br />
       <input type="text" value={messageText} onChange={handleChange} placeholder="메시지 내용" />

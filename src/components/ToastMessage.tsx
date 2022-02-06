@@ -1,13 +1,14 @@
 import * as Style from './styles';
 import * as Icon from '../icons';
-import { MessageType, Message } from '../types';
+import { MessageType, Message, ToastPosition } from '../types';
 
 interface Props {
+  position: ToastPosition;
   messages: Message[];
   closeMessage: (id: string) => void
 }
 
-export default function ToastMessage({ messages, closeMessage }: Props) {
+export default function ToastMessage({ position, messages, closeMessage }: Props) {
   function getIcon(type: MessageType) {
     if (type === 'success') return <Icon.Success />;
     if (type === 'warning') return <Icon.Warning />;
@@ -16,18 +17,17 @@ export default function ToastMessage({ messages, closeMessage }: Props) {
   }
 
   return (
-    <>
-      {messages.map(({ id, message, theme, type, duration, position }) => (
-        <Style.Container currentTheme={theme} messageType={type} key={id} position={position}>
+    <Style.ToastContainer position={position}>
+      {messages.map(({ id, message, theme, type, duration }) => (
+        <Style.Toast currentTheme={theme} messageType={type} key={id}>
           {getIcon(type)}
           <Style.Message currentTheme={theme} messageType={type}>{message}</Style.Message>
           <Style.CloseButton type="button" currentTheme={theme} messageType={type} onClick={() => closeMessage(id)}>
             <Icon.Close />
           </Style.CloseButton>
           <Style.ProgressBar currentTheme={theme} messageType={type} duration={`${duration}ms`} />
-        </Style.Container>
+        </Style.Toast>
       ))}
-    </>
+    </Style.ToastContainer>
   );
 }
-
