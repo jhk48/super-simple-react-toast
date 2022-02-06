@@ -1,5 +1,5 @@
 export type MessageType = 'success' | 'warning' | 'error' | 'info';
-export type ToastPosition = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
+export type ToastPosition = 'topLeft' | 'topRight' | 'topCenter' | 'bottomLeft' | 'bottomRight' | 'bottomCenter';
 export type Theme = 'light' | 'dark';
 
 interface ToastTheme {
@@ -33,6 +33,7 @@ interface ToastPositionValues {
   right?: string;
   top?: string;
   bottom?: string;
+  translateX?: string;
 }
 
 export type ToastPositions = {

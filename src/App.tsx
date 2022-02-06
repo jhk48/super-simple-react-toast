@@ -30,7 +30,7 @@ function App() {
     <ThemeProvider theme={currentTheme === 'light' ? lightTheme : darkTheme}>
       <GlobalStyle />
       <button type="button" onClick={() => toast.success(messageText, currentTheme, 500)}>success message</button>
-      <button type="button" onClick={() => toast.warning(messageText, currentTheme, 5000)}>warning message</button>
+      <button type="button" onClick={() => toast.warning(messageText, currentTheme, 500000)}>warning message</button>
       <button type="button" onClick={() => toast.info(messageText, currentTheme)}>info message</button>
       <button type="button" onClick={() => toast.error(messageText, currentTheme)}>error message</button>
       <br />

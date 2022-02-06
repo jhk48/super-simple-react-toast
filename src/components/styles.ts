@@ -71,6 +71,11 @@ const positions: ToastPositions = {
     top: '12px',
     right: '12px'  
   },
+  topCenter: {
+    top: '12px',
+    left: '50%',
+    translateX: '-50%'
+  },
   bottomLeft: {
     bottom: '12px',
     left: '12px',
@@ -79,15 +84,21 @@ const positions: ToastPositions = {
     bottom: '12px',
     right: '12px'  
   },
+  bottomCenter: {
+    bottom: '12px',
+    left: '50%',
+    translateX: '-50%'
+  }
 };
 
 export const ToastContainer = styled.div<ToastContainerProps>`
-  position: absolute;
-  z-index: 999;
+  position: fixed;
+  z-index: 9999;
   top: ${({ position }) => positions[position].top};
   bottom: ${({ position }) => positions[position].bottom};
   left: ${({ position }) => positions[position].left};
   right: ${({ position }) => positions[position].right};
+  transform: translateX(${({ position }) => positions[position].translateX});
 `;
 
 export const Toast = styled.div<ProgressBarProps>`

@@ -119,4 +119,4 @@ class Toast {
   }
 }
 
-export default new Toast("topRight");
+export default new Toast('topCenter');
