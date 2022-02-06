@@ -5,7 +5,7 @@ import { MessageType, Message, ToastPosition } from '../types';
 interface Props {
   position: ToastPosition;
   messages: Message[];
-  closeMessage: (id: string) => void
+  closeMessage: (id: string, position: ToastPosition) => void
 }
 
 export default function ToastMessage({ position, messages, closeMessage }: Props) {
@@ -22,7 +22,7 @@ export default function ToastMessage({ position, messages, closeMessage }: Props
         <Style.Toast key={id} currentTheme={theme} messageType={type} duration={duration}>
           {getIcon(type)}
           <Style.Message currentTheme={theme} messageType={type}>{message}</Style.Message>
-          <Style.CloseButton type="button" currentTheme={theme} messageType={type} onClick={() => closeMessage(id)}>
+          <Style.CloseButton type="button" currentTheme={theme} messageType={type} onClick={() => closeMessage(id, position)}>
             <Icon.Close />
           </Style.CloseButton>
           <Style.ProgressBar currentTheme={theme} messageType={type} duration={duration} />

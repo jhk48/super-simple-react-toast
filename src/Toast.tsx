@@ -3,40 +3,44 @@ import { render } from 'react-dom';
 import ToastMessage from './components/ToastMessage';
 import { Theme,  Message, ToastPosition } from './types';
 
+const positions = ['topLeft', 'topRight', 'topCenter', 'bottomLeft', 'bottomRight', 'bottomCenter'] as const;
+
 class Toast {
   #rootElem: HTMLElement;
-  #messages: Message[];
+  #messages: Map<ToastPosition, Message[]>;
   #defaultDuration: number;
-  #position: ToastPosition;
-  constructor(position: ToastPosition = 'topLeft') {
+  constructor() {
     this.#rootElem = document.getElementById('toast-root') as HTMLElement;
-    this.#messages = [];
     this.#defaultDuration = 3000;
-    this.#position = position;
+    this.#messages = new Map(positions.map(position => [position, []]));
   }
 
-  #closeMessage(idToDelete: string) {
-    const indexToDelete = this.#messages.findIndex(({ id }) => id === idToDelete);
-    this.#messages.splice(indexToDelete, 1);
+  #closeMessage(idToDelete: string, position: ToastPosition) {
+    const indexToDelete = (this.#messages.get(position) as Message[]).findIndex(({ id }) => id === idToDelete);
+    (this.#messages.get(position) as Message[]).splice(indexToDelete, 1);
     render(
-      <ToastMessage 
-        position={this.#position}
-        messages={this.#messages}
-        closeMessage={this.#closeMessage.bind(this)}
-      />,
+      <>
+        {positions.map(position => (
+          <ToastMessage 
+            position={position}
+            messages={this.#messages.get(position) as Message[]}
+            closeMessage={this.#closeMessage.bind(this)}
+        />
+        ))}
+      </>,
       this.#rootElem
     );
   }
 
-  #autoCloseMessage(duration: number, id: string) {
+  #autoCloseMessage(duration: number, position: ToastPosition, id: string) {
     setTimeout(() => {
-      this.#closeMessage(id);
+      this.#closeMessage(id, position);
     }, duration, this);
   }
 
-  success(message: string, theme: Theme = 'light', duration = this.#defaultDuration) {
+  success(message: string, theme: Theme = 'light', position: ToastPosition = 'topCenter', duration = this.#defaultDuration) {
     const id = uuid();
-    this.#messages.push({
+    (this.#messages.get(position) as Message[]).push({
       id,
       message,
       theme,
@@ -45,19 +49,23 @@ class Toast {
     });
 
     render(
-      <ToastMessage 
-        position={this.#position}
-        messages={this.#messages}
-        closeMessage={this.#closeMessage.bind(this)}
-      />,
+      <>
+        {positions.map(position => (
+          <ToastMessage 
+            position={position}
+            messages={this.#messages.get(position) as Message[]}
+            closeMessage={this.#closeMessage.bind(this)}
+        />
+        ))}
+      </>,
       this.#rootElem
     );
-    this.#autoCloseMessage(duration, id);
+    this.#autoCloseMessage(duration, position, id);
   }
 
-  warning(message: string, theme: Theme = 'light', duration = this.#defaultDuration) {
+  warning(message: string, theme: Theme = 'light', position: ToastPosition = 'topCenter', duration = this.#defaultDuration) {
     const id = uuid();
-    this.#messages.push({
+    (this.#messages.get(position) as Message[]).push({
       id,
       message,
       theme,
@@ -66,19 +74,23 @@ class Toast {
     });
 
     render(
-      <ToastMessage 
-        position={this.#position}
-        messages={this.#messages}
-        closeMessage={this.#closeMessage.bind(this)}
-      />,
+      <>
+        {positions.map(position => (
+          <ToastMessage 
+            position={position}
+            messages={this.#messages.get(position) as Message[]}
+            closeMessage={this.#closeMessage.bind(this)}
+        />
+        ))}
+      </>,
       this.#rootElem
     );
-    this.#autoCloseMessage(duration, id);
+    this.#autoCloseMessage(duration, position, id);
   }
 
-  error(message: string, theme: Theme = 'light', duration = this.#defaultDuration) {
+  error(message: string, theme: Theme = 'light', position: ToastPosition = 'topCenter', duration = this.#defaultDuration) {
     const id = uuid();
-    this.#messages.push({
+    (this.#messages.get(position) as Message[]).push({
       id,
       message,
       theme,
@@ -87,19 +99,23 @@ class Toast {
     });
 
     render(
-      <ToastMessage 
-        position={this.#position}
-        messages={this.#messages}
-        closeMessage={this.#closeMessage.bind(this)}
-      />,
+      <>
+        {positions.map(position => (
+          <ToastMessage 
+            position={position}
+            messages={this.#messages.get(position) as Message[]}
+            closeMessage={this.#closeMessage.bind(this)}
+        />
+        ))}
+      </>,
       this.#rootElem
     );
-    this.#autoCloseMessage(duration, id);
+    this.#autoCloseMessage(duration, position, id);
   }
   
-  info(message: string, theme: Theme = 'light', duration = this.#defaultDuration) {
+  info(message: string, theme: Theme = 'light', position: ToastPosition = 'topCenter', duration = this.#defaultDuration) {
     const id = uuid();
-    this.#messages.push({
+    (this.#messages.get(position) as Message[]).push({
       id,
       message,
       theme,
@@ -108,15 +124,19 @@ class Toast {
     });
 
     render(
-      <ToastMessage 
-        position={this.#position}
-        messages={this.#messages}
-        closeMessage={this.#closeMessage.bind(this)}
-      />,
+      <>
+        {positions.map(position => (
+          <ToastMessage 
+            position={position}
+            messages={this.#messages.get(position) as Message[]}
+            closeMessage={this.#closeMessage.bind(this)}
+        />
+        ))}
+      </>,
       this.#rootElem
     );
-    this.#autoCloseMessage(duration, id);
+    this.#autoCloseMessage(duration, position, id);
   }
 }
 
-export default new Toast('topCenter');
+export default new Toast();
