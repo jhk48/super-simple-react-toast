@@ -2,4 +2,4 @@
 
 프로토타입:
 
-![Prototype]()
+![Prototype](https://github.com/jaehyeon48/super-simple-react-toast/blob/main/toast_prototype.png)
