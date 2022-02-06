@@ -7,7 +7,7 @@ interface MessageProps {
 }
 
 interface ProgressBarProps extends MessageProps {
-  duration: string;
+  duration: number;
 }
 
 
@@ -90,7 +90,7 @@ export const ToastContainer = styled.div<ToastContainerProps>`
   right: ${({ position }) => positions[position].right};
 `;
 
-export const Toast = styled.div<MessageProps>`
+export const Toast = styled.div<ProgressBarProps>`
   position: relative;
   display: flex;
   align-items: center;
@@ -100,10 +100,33 @@ export const Toast = styled.div<MessageProps>`
   margin-bottom: 1em;
   padding: 0.7em;
   background-color: ${({ currentTheme, messageType }) => ToastTheme[currentTheme][messageType].backgroundColor};
+  animation: flipIn ${({ duration }) => Math.min(400, duration / 1.5)}ms;
 
   & > svg {
     fill: ${({ currentTheme, messageType }) => ToastTheme[currentTheme][messageType].color};
     margin-right: 0.5em;
+  }
+
+  @keyframes flipIn {
+    from {
+        transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+        animation-timing-function: ease-in;
+        opacity: 0;
+    }
+    40% {
+        transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+        animation-timing-function: ease-in;
+    }
+    60% {
+        transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+        opacity: 1
+    }
+    80% {
+        transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+    }
+    to {
+        transform: perspective(400px);
+    }
   }
 `;
 
@@ -133,7 +156,7 @@ export const ProgressBar = styled.div<ProgressBarProps>`
   bottom: 0;
   height: 5px;
   background-color: ${({ currentTheme, messageType }) => ToastTheme[currentTheme][messageType].progressBarColor};
-  animation: progressBar ${({ duration }) => duration} linear;
+  animation: progressBar ${({ duration }) => duration}ms linear;
 
   @keyframes progressBar {
     0% {

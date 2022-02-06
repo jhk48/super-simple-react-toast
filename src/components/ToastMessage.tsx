@@ -19,13 +19,13 @@ export default function ToastMessage({ position, messages, closeMessage }: Props
   return (
     <Style.ToastContainer position={position}>
       {messages.map(({ id, message, theme, type, duration }) => (
-        <Style.Toast currentTheme={theme} messageType={type} key={id}>
+        <Style.Toast key={id} currentTheme={theme} messageType={type} duration={duration}>
           {getIcon(type)}
           <Style.Message currentTheme={theme} messageType={type}>{message}</Style.Message>
           <Style.CloseButton type="button" currentTheme={theme} messageType={type} onClick={() => closeMessage(id)}>
             <Icon.Close />
           </Style.CloseButton>
-          <Style.ProgressBar currentTheme={theme} messageType={type} duration={`${duration}ms`} />
+          <Style.ProgressBar currentTheme={theme} messageType={type} duration={duration} />
         </Style.Toast>
       ))}
     </Style.ToastContainer>
