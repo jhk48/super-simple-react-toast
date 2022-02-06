@@ -17,7 +17,8 @@ const darkTheme: DefaultTheme = {
 
 function App() {
 	const [messageText, setMessageText] = useState('');
-	const [duration, setDuration] = useState<number>(3000);
+	const [duration, setDuration] = useState(3000);
+	const [maxNumOfMessages, setMaxNumOfMessages] = useState(5);
 	const [toastPosition, setToastPosition] = useState<ToastPosition>('topLeft');
 	const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('light');
 
@@ -36,27 +37,32 @@ function App() {
 		setDuration(Number(target.value));
 	}
 
+	function handleMaxNumMessagesChange(e: SyntheticEvent) {
+		const target = e.target as HTMLInputElement;
+		setMaxNumOfMessages(Number(target.value));
+	}
+
 	function toggleTheme() {
 		setCurrentTheme(prev => (prev === 'light' ? 'dark' : 'light'));
 	}
 
 	function bakeSuccessToast() {
-		toast.success(messageText, currentTheme, toastPosition, duration);
+		toast.success(messageText, currentTheme, toastPosition, duration, maxNumOfMessages);
 		setMessageText('');
 	}
 
 	function bakeWarningToast() {
-		toast.warning(messageText, currentTheme, toastPosition, duration);
+		toast.warning(messageText, currentTheme, toastPosition, duration, maxNumOfMessages);
 		setMessageText('');
 	}
 
 	function bakeErrorToast() {
-		toast.error(messageText, currentTheme, toastPosition, duration);
+		toast.error(messageText, currentTheme, toastPosition, duration, maxNumOfMessages);
 		setMessageText('');
 	}
 
 	function bakeInfoToast() {
-		toast.info(messageText, currentTheme, toastPosition, duration);
+		toast.info(messageText, currentTheme, toastPosition, duration, maxNumOfMessages);
 		setMessageText('');
 	}
 
@@ -120,9 +126,18 @@ function App() {
 						type="number"
 						value={duration}
 						onChange={handleDurationChange}
-						placeholder="메시지 내용"
+						placeholder="duration"
 					/>
 					ms
+				</Style.Label>
+				<Style.Label>
+					Max number of messages per position:
+					<Style.Input
+						type="number"
+						value={maxNumOfMessages}
+						onChange={handleMaxNumMessagesChange}
+						placeholder="max num of messages"
+					/>
 				</Style.Label>
 				<Style.Button type="button" backgroundColor="#A637E1" onClick={toggleTheme}>
 					toggle theme
