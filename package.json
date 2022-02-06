@@ -1,7 +1,7 @@
 {
   "name": "super-simple-react-toast",
   "version": "0.1.0",
-  "private": true,
+  "homepage": "https://jaehyeon48.github.io/super-simple-react-toast",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
@@ -20,6 +20,7 @@
   },
   "scripts": {
     "prettier": "prettier --write ./src",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -46,6 +47,7 @@
   "devDependencies": {
     "@types/styled-components": "^5.1.21",
     "@types/uuid": "^8.3.4",
+    "gh-pages": "^3.2.3",
     "prettier": "^2.5.1"
   }
 }
