@@ -17,6 +17,7 @@ const darkTheme: DefaultTheme = {
 
 function App() {
 	const [messageText, setMessageText] = useState('');
+	const [duration, setDuration] = useState<number>(3000);
 	const [toastPosition, setToastPosition] = useState<ToastPosition>('topLeft');
 	const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('light');
 
@@ -30,27 +31,32 @@ function App() {
 		setToastPosition(target.value as ToastPosition);
 	}
 
+	function handleDurationChange(e: SyntheticEvent) {
+		const target = e.target as HTMLInputElement;
+		setDuration(Number(target.value));
+	}
+
 	function toggleTheme() {
 		setCurrentTheme(prev => (prev === 'light' ? 'dark' : 'light'));
 	}
 
 	function bakeSuccessToast() {
-		toast.success(messageText, currentTheme, toastPosition, 5000);
+		toast.success(messageText, currentTheme, toastPosition, duration);
 		setMessageText('');
 	}
 
 	function bakeWarningToast() {
-		toast.warning(messageText, currentTheme, toastPosition, 5000);
+		toast.warning(messageText, currentTheme, toastPosition, duration);
 		setMessageText('');
 	}
 
 	function bakeErrorToast() {
-		toast.error(messageText, currentTheme, toastPosition, 5000);
+		toast.error(messageText, currentTheme, toastPosition, duration);
 		setMessageText('');
 	}
 
 	function bakeInfoToast() {
-		toast.info(messageText, currentTheme, toastPosition, 5000);
+		toast.info(messageText, currentTheme, toastPosition, duration);
 		setMessageText('');
 	}
 
@@ -88,7 +94,7 @@ function App() {
 						error message
 					</Style.Button>
 				</Style.BakeToastButtonContainer>
-				<label>
+				<Style.Label>
 					Message Content:
 					<Style.Input
 						type="text"
@@ -96,8 +102,8 @@ function App() {
 						onChange={handleTextChange}
 						placeholder="메시지 내용"
 					/>
-				</label>
-				<label>
+				</Style.Label>
+				<Style.Label>
 					Toast Position:
 					<Style.Select onChange={handleSelectChange} value={toastPosition}>
 						<option value="topLeft">top-left</option>
@@ -107,11 +113,22 @@ function App() {
 						<option value="bottomCenter">bottom-center</option>
 						<option value="bottomRight">bottom-right</option>
 					</Style.Select>
-				</label>
+				</Style.Label>
+				<Style.Label>
+					Message Duration:
+					<Style.Input
+						type="number"
+						value={duration}
+						onChange={handleDurationChange}
+						placeholder="메시지 내용"
+					/>
+					ms
+				</Style.Label>
 				<Style.Button type="button" backgroundColor="#A637E1" onClick={toggleTheme}>
 					toggle theme
 				</Style.Button>
 			</Style.AppContainer>
+			<Style.Notice>⚠️ Responsive UI is not supported yet.</Style.Notice>
 		</ThemeProvider>
 	);
 }
