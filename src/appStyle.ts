@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 interface ButtonProps {
 	backgroundColor: string;
+	textColor: string;
 }
 
 export const AppContainer = styled.div`
@@ -25,11 +26,12 @@ export const Button = styled.button<ButtonProps>`
 	margin: 1em;
 	padding: 0.4em 0.7em;
 	cursor: pointer;
+	color: ${({textColor}) => textColor};
 	background-color: ${({ backgroundColor }) => backgroundColor};
 `;
 
 export const Label = styled.label`
-	color: ${({ theme }) => (theme.currentTheme === 'light' ? '#000' : '#fff')};
+	color: var(--textColor);
 	margin: 1em 0;
 `;
 
@@ -50,5 +52,5 @@ export const Notice = styled.p`
   font-size: 20px;
   font-weight: 700;
 	margin-top: 3em;
-	color: ${({ theme }) => (theme.currentTheme === 'light' ? '#000' : '#fff')};
+	color: var(--textColor);
 `;

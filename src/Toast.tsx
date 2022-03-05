@@ -1,7 +1,14 @@
 import { v4 as uuid } from 'uuid';
 import { render } from 'react-dom';
 import Toasts from './components/Toasts';
-import { Theme, Message, ToastPosition } from './types';
+import { Message, ToastPosition } from './types';
+
+interface ToastArgs {
+	message: string;
+	position: ToastPosition;
+	duration?: number;
+	maxNumOfMessages?: number;
+}
 
 const positions = [
 	'topLeft',
@@ -64,19 +71,17 @@ class Toast {
 		(this.#messages.get(position) as Message[]).shift();
 	}
 
-	success(
-		message: string,
-		theme: Theme = 'light',
-		position: ToastPosition = 'topCenter',
+	success({
+		message,
+		position = 'topCenter',
 		duration = this.#defaultDuration,
 		maxNumOfMessages = this.#defaultMaxNumOfMessages
-	) {
+	}: ToastArgs) {
 		if (this.#hasReachedMaximum(position, maxNumOfMessages)) this.#dequeueOldestMessage(position);
 		const id = uuid();
 		(this.#messages.get(position) as Message[]).push({
 			id,
 			message,
-			theme,
 			type: 'success',
 			duration
 		});
@@ -96,19 +101,17 @@ class Toast {
 		this.#autoCloseMessage(duration, position, id);
 	}
 
-	warning(
-		message: string,
-		theme: Theme = 'light',
-		position: ToastPosition = 'topCenter',
+	warning({
+		message,
+		position = 'topCenter',
 		duration = this.#defaultDuration,
 		maxNumOfMessages = this.#defaultMaxNumOfMessages
-	) {
+	}: ToastArgs) {
 		if (this.#hasReachedMaximum(position, maxNumOfMessages)) this.#dequeueOldestMessage(position);
 		const id = uuid();
 		(this.#messages.get(position) as Message[]).push({
 			id,
 			message,
-			theme,
 			type: 'warning',
 			duration
 		});
@@ -128,19 +131,17 @@ class Toast {
 		this.#autoCloseMessage(duration, position, id);
 	}
 
-	error(
-		message: string,
-		theme: Theme = 'light',
-		position: ToastPosition = 'topCenter',
+	error({
+		message,
+		position = 'topCenter',
 		duration = this.#defaultDuration,
 		maxNumOfMessages = this.#defaultMaxNumOfMessages
-	) {
+	}: ToastArgs) {
 		if (this.#hasReachedMaximum(position, maxNumOfMessages)) this.#dequeueOldestMessage(position);
 		const id = uuid();
 		(this.#messages.get(position) as Message[]).push({
 			id,
 			message,
-			theme,
 			type: 'error',
 			duration
 		});
@@ -160,19 +161,17 @@ class Toast {
 		this.#autoCloseMessage(duration, position, id);
 	}
 
-	info(
-		message: string,
-		theme: Theme = 'light',
-		position: ToastPosition = 'topCenter',
+	info({
+		message,
+		position = 'topCenter',
 		duration = this.#defaultDuration,
 		maxNumOfMessages = this.#defaultMaxNumOfMessages
-	) {
+	}: ToastArgs) {
 		if (this.#hasReachedMaximum(position, maxNumOfMessages)) this.#dequeueOldestMessage(position);
 		const id = uuid();
 		(this.#messages.get(position) as Message[]).push({
 			id,
 			message,
-			theme,
 			type: 'info',
 			duration
 		});

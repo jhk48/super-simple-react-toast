@@ -1,19 +1,8 @@
-import { SyntheticEvent, useState } from 'react';
-import { ThemeProvider, DefaultTheme } from 'styled-components';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import GlobalStyle from './GlobalStyle';
 import * as Style from './appStyle';
 import toast from './Toast';
 import { ToastPosition } from './types';
-
-const lightTheme: DefaultTheme = {
-	bgColor: '#F8F9FA',
-	currentTheme: 'light'
-};
-
-const darkTheme: DefaultTheme = {
-	bgColor: '#1A1C34',
-	currentTheme: 'dark'
-};
 
 function App() {
 	const [messageText, setMessageText] = useState('');
@@ -21,6 +10,10 @@ function App() {
 	const [maxNumOfMessages, setMaxNumOfMessages] = useState(5);
 	const [toastPosition, setToastPosition] = useState<ToastPosition>('topLeft');
 	const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('light');
+
+	useEffect(() => {
+		document.documentElement.dataset.theme = currentTheme;
+	}, [currentTheme]);
 
 	function handleTextChange(e: SyntheticEvent) {
 		const target = e.target as HTMLInputElement;
@@ -47,54 +40,78 @@ function App() {
 	}
 
 	function bakeSuccessToast() {
-		toast.success(messageText, currentTheme, toastPosition, duration, maxNumOfMessages);
+		toast.success({
+			message: messageText,
+			position: toastPosition,
+			duration,
+			maxNumOfMessages
+		});
 		setMessageText('');
 	}
 
 	function bakeWarningToast() {
-		toast.warning(messageText, currentTheme, toastPosition, duration, maxNumOfMessages);
+		toast.warning({
+			message: messageText,
+			position: toastPosition,
+			duration,
+			maxNumOfMessages
+		});
 		setMessageText('');
 	}
 
 	function bakeErrorToast() {
-		toast.error(messageText, currentTheme, toastPosition, duration, maxNumOfMessages);
+		toast.error({
+			message: messageText,
+			position: toastPosition,
+			duration,
+			maxNumOfMessages
+		});
 		setMessageText('');
 	}
 
 	function bakeInfoToast() {
-		toast.info(messageText, currentTheme, toastPosition, duration, maxNumOfMessages);
+		toast.info({
+			message: messageText,
+			position: toastPosition,
+			duration,
+			maxNumOfMessages
+		});
 		setMessageText('');
 	}
 
 	return (
-		<ThemeProvider theme={currentTheme === 'light' ? lightTheme : darkTheme}>
+		<>
 			<GlobalStyle />
 			<Style.AppContainer>
 				<Style.BakeToastButtonContainer>
 					<Style.Button
 						type="button"
-						backgroundColor={currentTheme === 'light' ? '#4CAF50' : '#16B542'}
+						textColor="var(--white)"
+						backgroundColor="var(--toastSuccessBgColor)"
 						onClick={bakeSuccessToast}
 					>
 						success message
 					</Style.Button>
 					<Style.Button
 						type="button"
-						backgroundColor={currentTheme === 'light' ? '#FABE0C' : '#EBB410'}
+						textColor="var(--toastWarningTextColor)"
+						backgroundColor="var(--toastWarningBgColor)"
 						onClick={bakeWarningToast}
 					>
 						warning message
 					</Style.Button>
 					<Style.Button
 						type="button"
-						backgroundColor={currentTheme === 'light' ? '#2196F3' : '#1D86E8'}
+						textColor="var(--white)"
+						backgroundColor="var(--toastInfoBgColor)"
 						onClick={bakeInfoToast}
 					>
 						info message
 					</Style.Button>
 					<Style.Button
 						type="button"
-						backgroundColor={currentTheme === 'light' ? '#FF5252' : '#E74949'}
+						textColor="var(--white)"
+						backgroundColor="var(--toastErrorBgColor)"
 						onClick={bakeErrorToast}
 					>
 						error message
@@ -139,12 +156,17 @@ function App() {
 						placeholder="max num of messages"
 					/>
 				</Style.Label>
-				<Style.Button type="button" backgroundColor="#A637E1" onClick={toggleTheme}>
+				<Style.Button
+					type="button"
+					textColor="var(--white)"
+					backgroundColor="#A637E1"
+					onClick={toggleTheme}
+				>
 					toggle theme
 				</Style.Button>
 			</Style.AppContainer>
 			<Style.Notice>⚠️ Responsive UI is not supported yet.</Style.Notice>
-		</ThemeProvider>
+		</>
 	);
 }
 
