@@ -1,10 +1,10 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
 import GlobalStyle from './GlobalStyle';
 import * as Style from './appStyle';
-import toast from './Toast';
-import { ToastPosition } from './types';
+import { useToast, ToastPosition } from 'super-simple-react-toast';
 
 function App() {
+	const toast = useToast();
 	const [messageText, setMessageText] = useState('');
 	const [duration, setDuration] = useState(3000);
 	const [maxNumOfMessages, setMaxNumOfMessages] = useState(5);
