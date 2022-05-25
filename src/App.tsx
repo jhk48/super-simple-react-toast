@@ -123,7 +123,7 @@ function App() {
 						type="text"
 						value={messageText}
 						onChange={handleTextChange}
-						placeholder="메시지 내용"
+						placeholder="Type message here..."
 					/>
 				</Style.Label>
 				<Style.Label>
